@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="scout" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="analyst" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="executor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" rx="16" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="700">SPECTRA PIPELINE</text>
+  <text x="400" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">Multi-Agent Market Intelligence</text>
+
+  <!-- Scout Box -->
+  <rect x="50" y="110" width="200" height="180" rx="12" fill="url(#scout)" opacity="0.9"/>
+  <text x="150" y="148" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">SCOUT</text>
+  <text x="150" y="170" text-anchor="middle" fill="#dbeafe" font-size="12">Signal Discovery</text>
+  <line x1="80" y1="185" x2="220" y2="185" stroke="#60a5fa" stroke-width="0.5"/>
+  <text x="150" y="205" text-anchor="middle" fill="#e0e7ff" font-size="11">• DexScreener API</text>
+  <text x="150" y="223" text-anchor="middle" fill="#e0e7ff" font-size="11">• On-chain RPC</text>
+  <text x="150" y="241" text-anchor="middle" fill="#e0e7ff" font-size="11">• Telegram channels</text>
+  <text x="150" y="259" text-anchor="middle" fill="#e0e7ff" font-size="11">• Social signals</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 260 200 L 290 200" stroke="#475569" stroke-width="2" marker-end="url(#arrow1)"/>
+  <defs><marker id="arrow1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#475569"/></marker></defs>
+  <text x="275" y="192" text-anchor="middle" fill="#64748b" font-size="9">Signals</text>
+
+  <!-- Analyst Box -->
+  <rect x="300" y="110" width="200" height="180" rx="12" fill="url(#analyst)" opacity="0.9"/>
+  <text x="400" y="148" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">ANALYST</text>
+  <text x="400" y="170" text-anchor="middle" fill="#ede9fe" font-size="12">Deep Reasoning</text>
+  <line x1="330" y1="185" x2="470" y2="185" stroke="#a78bfa" stroke-width="0.5"/>
+  <text x="400" y="205" text-anchor="middle" fill="#e0e7ff" font-size="11">• Chain-of-thought</text>
+  <text x="400" y="223" text-anchor="middle" fill="#e0e7ff" font-size="11">• MiMo / Claude LLM</text>
+  <text x="400" y="241" text-anchor="middle" fill="#e0e7ff" font-size="11">• 6-step framework</text>
+  <text x="400" y="259" text-anchor="middle" fill="#e0e7ff" font-size="11">• Scored assessments</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 510 200 L 540 200" stroke="#475569" stroke-width="2" marker-end="url(#arrow2)"/>
+  <defs><marker id="arrow2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#475569"/></marker></defs>
+  <text x="525" y="192" text-anchor="middle" fill="#64748b" font-size="9">Assessments</text>
+
+  <!-- Executor Box -->
+  <rect x="550" y="110" width="200" height="180" rx="12" fill="url(#executor)" opacity="0.9"/>
+  <text x="650" y="148" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">EXECUTOR</text>
+  <text x="650" y="170" text-anchor="middle" fill="#d1fae5" font-size="12">Output &amp; Alerts</text>
+  <line x1="580" y1="185" x2="720" y2="185" stroke="#34d399" stroke-width="0.5"/>
+  <text x="650" y="205" text-anchor="middle" fill="#e0e7ff" font-size="11">• Telegram alerts</text>
+  <text x="650" y="223" text-anchor="middle" fill="#e0e7ff" font-size="11">• Discord webhooks</text>
+  <text x="650" y="241" text-anchor="middle" fill="#e0e7ff" font-size="11">• Intelligence briefs</text>
+  <text x="650" y="259" text-anchor="middle" fill="#e0e7ff" font-size="11">• Periodic digest</text>
+
+  <!-- Redis bar -->
+  <rect x="150" y="330" width="500" height="50" rx="8" fill="#dc2626" opacity="0.15" stroke="#dc2626" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="400" y="360" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="600">Redis Pub/Sub — Inter-Agent Message Bus</text>
+
+  <!-- Connection lines to Redis -->
+  <line x1="150" y1="290" x2="250" y2="330" stroke="#dc2626" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,4"/>
+  <line x1="400" y1="290" x2="400" y2="330" stroke="#dc2626" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,4"/>
+  <line x1="650" y1="290" x2="550" y2="330" stroke="#dc2626" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,4"/>
+
+  <!-- Footer -->
+  <text x="400" y="410" text-anchor="middle" fill="#475569" font-size="10">github.com/garokatm/spectra</text>
+</svg>

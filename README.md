@@ -1,0 +1,161 @@
+# Spectra 🔭
+
+**Multi-Agent Market Intelligence Platform**
+
+Spectra is a multi-agent AI system that orchestrates specialized agents to perform real-time crypto market intelligence — from signal discovery to deep analysis to actionable output. Built with long-chain reasoning and multi-agent collaboration at its core.
+
+![Architecture](docs/architecture.png)
+
+## Why Spectra？
+
+Tracking crypto markets manually is overwhelming. Signals are scattered across on-chain data, social media, DEX screens, and project announcements. By the time a human pieces everything together, the opportunity is gone.
+
+Spectra solves this by deploying **three specialized AI agents** that collaborate in a pipeline:
+
+| Agent | Role | What It Does |
+|-------|------|-------------|
+| **Scout** | Signal Discovery | Monitors multiple data sources in parallel — on-chain events, DEX liquidity changes, social signals, project announcements. Emits structured signals. |
+| **Analyst** | Deep Reasoning | Receives signals from Scout, performs multi-step chain-of-thought analysis. Cross-references on-chain data with project fundamentals. Produces scored assessments. |
+| **Executor** | Action & Output | Consumes Analyst's assessments, generates human-readable intelligence briefs, dashboards, and automated alerts via Telegram/Discord. |
+
+## How It Works
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Scout      │────▶│   Analyst    │────▶│   Executor   │
+│  (Discover)  │     │  (Reason)    │     │  (Deliver)   │
+└──────┬───────┘     └──────┬───────┘     └──────┬───────┘
+       │                    │                    │
+  ┌────▼────┐         ┌────▼────┐         ┌─────▼─────┐
+  │On-chain │         │Chain-of │         │ Telegram  │
+  │DEX Data │         │Thought  │         │ Dashboard │
+  │Social   │         │Reasoning│         │ Alerts    │
+  └─────────┘         └─────────┘         └───────────┘
+```
+
+### Scout Agent
+- Polls DexScreener API for new liquidity pools and price changes
+- Monitors on-chain events (new token deployments, whale movements)
+- Scrapes curated Telegram channels and project announcements
+- Emits normalized `Signal` objects to the message bus
+
+### Analyst Agent
+- Consumes `Signal` objects from Scout
+- Performs multi-step reasoning: verifies signal → assesses fundamentals → checks on-chain proof → scores opportunity
+- Uses chain-of-thought prompting with MiMo / Claude models for deep analysis
+- Outputs `Assessment` objects with confidence scores and risk ratings
+
+### Executor Agent
+- Consumes `Assessment` objects
+- Formats intelligence briefs (Markdown, rich Telegram messages)
+- Manages alert routing (high-confidence → instant alert, medium → digest)
+- Maintains a dashboard of active opportunities with freshness tracking
+
+## Tech Stack
+
+- **Language:** Python 3.11+
+- **AI Models:** Xiaomi MiMo (primary), Claude (fallback)
+- **Agent Framework:** Custom lightweight orchestrator (no vendor lock-in)
+- **Data Sources:** DexScreener API, on-chain RPCs, Telegram channels
+- **Message Bus:** Redis Pub/Sub for inter-agent communication
+- **Output:** Telegram Bot API, Discord webhooks, JSON/Markdown reports
+
+## Quick Start
+
+```bash
+# Clone
+git clone https://github.com/garokatm/spectra.git
+cd spectra
+
+# Install
+pip install -e ".[dev]"
+
+# Configure
+cp .env.example .env
+# Edit .env with your API keys
+
+# Run the full pipeline
+python -m spectra --mode pipeline
+
+# Run individual agents
+python -m spectra --mode scout
+python -m spectra --mode analyst
+python -m spectra --mode executor
+```
+
+## Configuration
+
+Copy `.env.example` to `.env` and fill in:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `MIMO_API_KEY` | Xiaomi MiMo API key | Yes |
+| `REDIS_URL` | Redis connection string | Yes |
+| `DEXSCREENER_API` | DexScreener endpoint | No (default provided) |
+| `TELEGRAM_BOT_TOKEN` | Bot token for alerts | For Executor |
+| `TELEGRAM_CHAT_ID` | Target chat for alerts | For Executor |
+
+## Project Structure
+
+```
+spectra/
+├── src/
+│   └── spectra/
+│       ├── __init__.py
+│       ├── orchestrator.py      # Pipeline orchestrator
+│       ├── models.py            # Signal, Assessment, Brief data models
+│       ├── agents/
+│       │   ├── __init__.py
+│       │   ├── scout.py         # Signal discovery agent
+│       │   ├── analyst.py       # Deep reasoning agent
+│       │   └── executor.py      # Output & alerting agent
+│       ├── tools/
+│       │   ├── __init__.py
+│       │   ├── dexscreener.py   # DEX data fetcher
+│       │   ├── onchain.py       # On-chain data tools
+│       │   └── llm.py           # LLM interface (MiMo/Claude)
+│       └── config.py            # Configuration management
+├── examples/
+│   └── demo_pipeline.py         # End-to-end demo
+├── tests/
+│   ├── test_scout.py
+│   ├── test_analyst.py
+│   └── test_orchestrator.py
+├── docs/
+│   └── architecture.md
+├── pyproject.toml
+├── LICENSE
+└── README.md
+```
+
+## Demo Output
+
+Example intelligence brief generated by Spectra:
+
+```
+╔══════════════════════════════════════════╗
+║        SPECTRA INTELLIGENCE BRIEF        ║
+║        2026-04-29 12:00 UTC              ║
+╠══════════════════════════════════════════╣
+║                                          ║
+║  🔴 HIGH CONFIDENCE                      ║
+║  Project: [TOKEN_NAME]                   ║
+║  Chain: Solana                           ║
+║  Signal: New LP + Social Buzz            ║
+║  Score: 87/100                           ║
+║  Risk: Medium (liquidity lock 6mo)       ║
+║                                          ║
+║  Summary: Fresh deployment detected on   ║
+║  Pump.fun with 500 SOL initial LP.       ║
+║  Project has active Twitter presence     ║
+║  with 12K followers and verified team.   ║
+║  On-chain: Dev wallet holds 3% supply.   ║
+║                                          ║
+║  Action: Monitor for LP burn event.      ║
+║                                          ║
+╚══════════════════════════════════════════╝
+```
+
+## License
+
+MIT
